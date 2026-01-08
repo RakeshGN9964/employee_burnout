@@ -1,300 +1,130 @@
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": 2,
-   "id": "29ca0022-c7df-4934-a22e-ca1600b225db",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Collecting shap\n",
-      "  Downloading shap-0.50.0-cp313-cp313-win_amd64.whl.metadata (25 kB)\n",
-      "Requirement already satisfied: numpy>=2 in c:\\users\\rakesh g n\\anaconda3\\lib\\site-packages (from shap) (2.1.3)\n",
-      "Requirement already satisfied: scipy in c:\\users\\rakesh g n\\anaconda3\\lib\\site-packages (from shap) (1.15.3)\n",
-      "Requirement already satisfied: scikit-learn in c:\\users\\rakesh g n\\anaconda3\\lib\\site-packages (from shap) (1.6.1)\n",
-      "Requirement already satisfied: pandas in c:\\users\\rakesh g n\\anaconda3\\lib\\site-packages (from shap) (2.2.3)\n",
-      "Requirement already satisfied: tqdm>=4.27.0 in c:\\users\\rakesh g n\\anaconda3\\lib\\site-packages (from shap) (4.67.1)\n",
-      "Requirement already satisfied: packaging>20.9 in c:\\users\\rakesh g n\\anaconda3\\lib\\site-packages (from shap) (24.2)\n",
-      "Collecting slicer==0.0.8 (from shap)\n",
-      "  Downloading slicer-0.0.8-py3-none-any.whl.metadata (4.0 kB)\n",
-      "Requirement already satisfied: numba>=0.54 in c:\\users\\rakesh g n\\anaconda3\\lib\\site-packages (from shap) (0.61.0)\n",
-      "Requirement already satisfied: cloudpickle in c:\\users\\rakesh g n\\anaconda3\\lib\\site-packages (from shap) (3.0.0)\n",
-      "Requirement already satisfied: typing-extensions in c:\\users\\rakesh g n\\anaconda3\\lib\\site-packages (from shap) (4.12.2)\n",
-      "Requirement already satisfied: llvmlite<0.45,>=0.44.0dev0 in c:\\users\\rakesh g n\\anaconda3\\lib\\site-packages (from numba>=0.54->shap) (0.44.0)\n",
-      "Requirement already satisfied: colorama in c:\\users\\rakesh g n\\anaconda3\\lib\\site-packages (from tqdm>=4.27.0->shap) (0.4.6)\n",
-      "Requirement already satisfied: python-dateutil>=2.8.2 in c:\\users\\rakesh g n\\anaconda3\\lib\\site-packages (from pandas->shap) (2.9.0.post0)\n",
-      "Requirement already satisfied: pytz>=2020.1 in c:\\users\\rakesh g n\\anaconda3\\lib\\site-packages (from pandas->shap) (2024.1)\n",
-      "Requirement already satisfied: tzdata>=2022.7 in c:\\users\\rakesh g n\\anaconda3\\lib\\site-packages (from pandas->shap) (2025.2)\n",
-      "Requirement already satisfied: six>=1.5 in c:\\users\\rakesh g n\\anaconda3\\lib\\site-packages (from python-dateutil>=2.8.2->pandas->shap) (1.17.0)\n",
-      "Requirement already satisfied: joblib>=1.2.0 in c:\\users\\rakesh g n\\anaconda3\\lib\\site-packages (from scikit-learn->shap) (1.4.2)\n",
-      "Requirement already satisfied: threadpoolctl>=3.1.0 in c:\\users\\rakesh g n\\anaconda3\\lib\\site-packages (from scikit-learn->shap) (3.5.0)\n",
-      "Downloading shap-0.50.0-cp313-cp313-win_amd64.whl (549 kB)\n",
-      "   ---------------------------------------- 0.0/549.1 kB ? eta -:--:--\n",
-      "   ---------------------------------------- 0.0/549.1 kB ? eta -:--:--\n",
-      "   ------------------- -------------------- 262.1/549.1 kB ? eta -:--:--\n",
-      "   ---------------------------------------- 549.1/549.1 kB 1.3 MB/s eta 0:00:00\n",
-      "Downloading slicer-0.0.8-py3-none-any.whl (15 kB)\n",
-      "Installing collected packages: slicer, shap\n",
-      "\n",
-      "   -------------------- ------------------- 1/2 [shap]\n",
-      "   -------------------- ------------------- 1/2 [shap]\n",
-      "   -------------------- ------------------- 1/2 [shap]\n",
-      "   -------------------- ------------------- 1/2 [shap]\n",
-      "   -------------------- ------------------- 1/2 [shap]\n",
-      "   ---------------------------------------- 2/2 [shap]\n",
-      "\n",
-      "Successfully installed shap-0.50.0 slicer-0.0.8\n"
-     ]
-    }
-   ],
-   "source": [
-    "!pip install shap"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 3,
-   "id": "2cd5d14b-4ca4-4126-8104-83cfdd29bb02",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "2026-01-08 12:16:23.520 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:23.522 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.093 \n",
-      "  \u001b[33m\u001b[1mWarning:\u001b[0m to view this Streamlit app on a browser, run it with the following\n",
-      "  command:\n",
-      "\n",
-      "    streamlit run C:\\Users\\Rakesh G N\\anaconda3\\Lib\\site-packages\\ipykernel_launcher.py [ARGUMENTS]\n",
-      "2026-01-08 12:16:24.095 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.096 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.097 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.306 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.308 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.309 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.309 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.310 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.311 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.311 Session state does not function when running a script without `streamlit run`\n",
-      "2026-01-08 12:16:24.312 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.313 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.314 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.315 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.317 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.320 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.324 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.325 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.326 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.328 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.329 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.331 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.336 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.338 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.339 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.340 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.341 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.342 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.342 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.344 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.345 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.347 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.352 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.355 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.356 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.357 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.358 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.358 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.359 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.360 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.360 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.361 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.363 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.364 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.366 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.370 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.373 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.376 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.377 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.378 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.379 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.380 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.383 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.386 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.388 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.390 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.391 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.392 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.393 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.393 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.394 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.395 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.396 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.397 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.398 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.399 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.403 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.414 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.415 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.421 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.423 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.425 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.428 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
-      "2026-01-08 12:16:24.429 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n"
-     ]
-    }
-   ],
-   "source": [
-    "import streamlit as st\n",
-    "import pandas as pd\n",
-    "import numpy as np\n",
-    "import joblib\n",
-    "import shap\n",
-    "import matplotlib.pyplot as plt\n",
-    "\n",
-    "# ---------------------------------------------\n",
-    "# Page Configuration\n",
-    "# ---------------------------------------------\n",
-    "st.set_page_config(page_title=\"Employee Burnout AI\", layout=\"centered\")\n",
-    "\n",
-    "st.markdown(\n",
-    "    \"<h1 style='text-align:center; color:#ff4b4b;'>Employee Burnout & Attrition Predictor</h1>\",\n",
-    "    unsafe_allow_html=True\n",
-    ")\n",
-    "\n",
-    "st.markdown(\"---\")\n",
-    "\n",
-    "# ---------------------------------------------\n",
-    "# Load Models & Encoders\n",
-    "# ---------------------------------------------\n",
-    "burnout_model = joblib.load(\"burnout_model.pkl\")\n",
-    "attrition_model = joblib.load(\"attrition_model.pkl\")\n",
-    "label_encoders = joblib.load(\"label_encoders.pkl\")\n",
-    "\n",
-    "# ---------------------------------------------\n",
-    "# Input Section\n",
-    "# ---------------------------------------------\n",
-    "st.header(\"👤 Employee Information\")\n",
-    "\n",
-    "age = st.number_input(\"Age\", 22, 60, 30, key=\"age\")\n",
-    "gender = st.selectbox(\"Gender\", [\"Male\", \"Female\"], key=\"gender\")\n",
-    "job_role = st.selectbox(\n",
-    "    \"Job Role\",\n",
-    "    [\"Developer\", \"Data Analyst\", \"Manager\", \"HR\", \"Sales\"],\n",
-    "    key=\"jobrole\"\n",
-    ")\n",
-    "income = st.number_input(\"Monthly Income\", 20000, 120000, 50000, key=\"income\")\n",
-    "hours = st.slider(\"Work Hours Per Week\", 35, 65, 45, key=\"hours\")\n",
-    "overtime = st.selectbox(\"Overtime\", [\"Yes\", \"No\"], key=\"overtime\")\n",
-    "job_sat = st.slider(\"Job Satisfaction (1–5)\", 1, 5, 3, key=\"jobsat\")\n",
-    "wlb = st.slider(\"Work-Life Balance (1–5)\", 1, 5, 3, key=\"wlb\")\n",
-    "years = st.number_input(\"Years at Company\", 0, 15, 3, key=\"years\")\n",
-    "promo_gap = st.slider(\"Years Since Last Promotion\", 0, 7, 2, key=\"promo\")\n",
-    "manager_support = st.slider(\"Manager Support (1–5)\", 1, 5, 3, key=\"support\")\n",
-    "\n",
-    "# ---------------------------------------------\n",
-    "# Encode Inputs\n",
-    "# ---------------------------------------------\n",
-    "input_df = pd.DataFrame([{\n",
-    "    \"Age\": age,\n",
-    "    \"Gender\": label_encoders[\"Gender\"].transform([gender])[0],\n",
-    "    \"JobRole\": label_encoders[\"JobRole\"].transform([job_role])[0],\n",
-    "    \"MonthlyIncome\": income,\n",
-    "    \"WorkHoursPerWeek\": hours,\n",
-    "    \"Overtime\": label_encoders[\"Overtime\"].transform([overtime])[0],\n",
-    "    \"JobSatisfaction\": job_sat,\n",
-    "    \"WorkLifeBalance\": wlb,\n",
-    "    \"YearsAtCompany\": years,\n",
-    "    \"PromotionGap\": promo_gap,\n",
-    "    \"ManagerSupport\": manager_support\n",
-    "}])\n",
-    "\n",
-    "# ---------------------------------------------\n",
-    "# Predict Button\n",
-    "# ---------------------------------------------\n",
-    "st.markdown(\"<br>\", unsafe_allow_html=True)\n",
-    "predict = st.button(\"🔍 Predict Risk\", use_container_width=True)\n",
-    "\n",
-    "if predict:\n",
-    "    st.markdown(\"---\")\n",
-    "    st.header(\"📊 Prediction Results\")\n",
-    "\n",
-    "    # Burnout Prediction\n",
-    "    burnout_pred = burnout_model.predict(input_df)[0]\n",
-    "    burnout_label = label_encoders[\"BurnoutRisk\"].inverse_transform([burnout_pred])[0]\n",
-    "\n",
-    "    # Attrition Prediction\n",
-    "    attrition_prob = attrition_model.predict_proba(input_df)[0][1] * 100\n",
-    "\n",
-    "    # ---------------------------------------------\n",
-    "    # Display Results\n",
-    "    # ---------------------------------------------\n",
-    "    if burnout_label == \"High\":\n",
-    "        st.error(\"🔥 Burnout Risk: HIGH\")\n",
-    "    elif burnout_label == \"Medium\":\n",
-    "        st.warning(\"⚠️ Burnout Risk: MEDIUM\")\n",
-    "    else:\n",
-    "        st.success(\"✅ Burnout Risk: LOW\")\n",
-    "\n",
-    "    st.markdown(\n",
-    "        f\"<h3 style='color:red;'>Attrition Probability: {attrition_prob:.2f}%</h3>\",\n",
-    "        unsafe_allow_html=True\n",
-    "    )\n",
-    "\n",
-    "    # ---------------------------------------------\n",
-    "    # Explainability using SHAP\n",
-    "    # ---------------------------------------------\n",
-    "    st.markdown(\"---\")\n",
-    "    st.header(\"🧠 Why this Prediction? (Explainable AI)\")\n",
-    "\n",
-    "    explainer = shap.TreeExplainer(attrition_model)\n",
-    "    shap_values = explainer.shap_values(input_df)\n",
-    "\n",
-    "    fig, ax = plt.subplots()\n",
-    "    shap.bar_plot(shap_values[1][0], feature_names=input_df.columns, max_display=8)\n",
-    "    st.pyplot(fig)\n",
-    "\n",
-    "    # ---------------------------------------------\n",
-    "    # HR Recommendations\n",
-    "    # ---------------------------------------------\n",
-    "    st.markdown(\"---\")\n",
-    "    st.header(\"💡 HR Action Recommendations\")\n",
-    "\n",
-    "    if burnout_label == \"High\":\n",
-    "        st.write(\"🔴 Reduce workload and overtime immediately\")\n",
-    "        st.write(\"🔴 Improve manager support\")\n",
-    "        st.write(\"🔴 Offer wellness or leave options\")\n",
-    "    elif burnout_label == \"Medium\":\n",
-    "        st.write(\"🟡 Monitor workload\")\n",
-    "        st.write(\"🟡 Consider role growth or promotion\")\n",
-    "    else:\n",
-    "        st.write(\"🟢 Employee is healthy and engaged\")\n"
-   ]
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3 (ipykernel)",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.13.5"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 5
-}
+import streamlit as st
+import pandas as pd
+import numpy as np
+import joblib
+import shap
+import matplotlib.pyplot as plt
+
+# ---------------------------------------------
+# Page Configuration
+# ---------------------------------------------
+st.set_page_config(
+    page_title="Employee Burnout AI",
+    layout="centered"
+)
+
+st.markdown(
+    "<h1 style='text-align:center; color:#ff4b4b;'>Employee Burnout & Attrition Predictor</h1>",
+    unsafe_allow_html=True
+)
+
+st.markdown("---")
+
+# ---------------------------------------------
+# Load Models & Encoders
+# ---------------------------------------------
+burnout_model = joblib.load("burnout_model.pkl")
+attrition_model = joblib.load("attrition_model.pkl")
+label_encoders = joblib.load("label_encoders.pkl")
+
+# ---------------------------------------------
+# Input Section
+# ---------------------------------------------
+st.header("👤 Employee Information")
+
+age = st.number_input("Age", 22, 60, 30)
+gender = st.selectbox("Gender", ["Male", "Female"])
+job_role = st.selectbox(
+    "Job Role",
+    ["Developer", "Data Analyst", "Manager", "HR", "Sales"]
+)
+income = st.number_input("Monthly Income", 20000, 120000, 50000)
+hours = st.slider("Work Hours Per Week", 35, 65, 45)
+overtime = st.selectbox("Overtime", ["Yes", "No"])
+job_sat = st.slider("Job Satisfaction (1–5)", 1, 5, 3)
+wlb = st.slider("Work-Life Balance (1–5)", 1, 5, 3)
+years = st.number_input("Years at Company", 0, 15, 3)
+promo_gap = st.slider("Years Since Last Promotion", 0, 7, 2)
+manager_support = st.slider("Manager Support (1–5)", 1, 5, 3)
+
+# ---------------------------------------------
+# Encode Inputs
+# ---------------------------------------------
+input_df = pd.DataFrame([{
+    "Age": age,
+    "Gender": label_encoders["Gender"].transform([gender])[0],
+    "JobRole": label_encoders["JobRole"].transform([job_role])[0],
+    "MonthlyIncome": income,
+    "WorkHoursPerWeek": hours,
+    "Overtime": label_encoders["Overtime"].transform([overtime])[0],
+    "JobSatisfaction": job_sat,
+    "WorkLifeBalance": wlb,
+    "YearsAtCompany": years,
+    "PromotionGap": promo_gap,
+    "ManagerSupport": manager_support
+}])
+
+# ---------------------------------------------
+# Predict Button
+# ---------------------------------------------
+st.markdown("<br>", unsafe_allow_html=True)
+predict = st.button("🔍 Predict Risk", use_container_width=True)
+
+if predict:
+    st.markdown("---")
+    st.header("📊 Prediction Results")
+
+    # Burnout Prediction
+    burnout_pred = burnout_model.predict(input_df)[0]
+    burnout_label = label_encoders["BurnoutRisk"].inverse_transform([burnout_pred])[0]
+
+    # Attrition Prediction
+    attrition_prob = attrition_model.predict_proba(input_df)[0][1] * 100
+
+    # ---------------------------------------------
+    # Display Results
+    # ---------------------------------------------
+    if burnout_label == "High":
+        st.error("🔥 Burnout Risk: HIGH")
+    elif burnout_label == "Medium":
+        st.warning("⚠️ Burnout Risk: MEDIUM")
+    else:
+        st.success("✅ Burnout Risk: LOW")
+
+    st.markdown(
+        f"<h3 style='color:red;'>Attrition Probability: {attrition_prob:.2f}%</h3>",
+        unsafe_allow_html=True
+    )
+
+    # ---------------------------------------------
+    # Explainability using SHAP
+    # ---------------------------------------------
+    st.markdown("---")
+    st.header("🧠 Why this Prediction? (Explainable AI)")
+
+    explainer = shap.TreeExplainer(attrition_model)
+    shap_values = explainer.shap_values(input_df)
+
+    fig, ax = plt.subplots()
+    shap.bar_plot(
+        shap_values[1][0],
+        feature_names=input_df.columns,
+        max_display=8
+    )
+    st.pyplot(fig)
+
+    # ---------------------------------------------
+    # HR Recommendations
+    # ---------------------------------------------
+    st.markdown("---")
+    st.header("💡 HR Action Recommendations")
+
+    if burnout_label == "High":
+        st.write("🔴 Reduce workload and overtime immediately")
+        st.write("🔴 Improve manager support")
+        st.write("🔴 Offer wellness or leave options")
+    elif burnout_label == "Medium":
+        st.write("🟡 Monitor workload")
+        st.write("🟡 Consider role growth or promotion")
+    else:
+        st.write("🟢 Employee is healthy and engaged")
